@@ -1,0 +1,46 @@
+<h1>All Users</h1>
+<form [formGroup]="searchForm">
+  <input
+    formControlName="search"
+    class="search text-center"
+    placeholder="search for user by id"
+    type="text"
+  />
+</form>
+<div *ngIf="loaded$ | async">
+  <div *ngIf="!switch" class="row main container">
+    <ng-container *ngFor="let user of users$ | async">
+      <mat-card
+        routerLink="/singleuser/{{ user.id }}"
+        class="example-card col-lg-3 col-sm-6 ms-1 mt-4 m-auto"
+      >
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title
+              >{{ user.first_name }} {{ user.last_name }}</mat-card-title
+            >
+            <mat-card-subtitle> {{ user.id }}</mat-card-subtitle>
+            <img mat-card-lg-image [src]="user.avatar" />
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content class="ms-2 mt-2">
+          {{ user.email }}
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Start single user display -->
+
+<div *ngIf="switch">
+  <app-display-single-user
+    [info]="dataForSingleUser[0]"
+  ></app-display-single-user>
+</div>
+<!-- progrissive bar -->
+<mat-progress-bar
+  class="loader"
+  *ngIf="!(loaded$ | async)"
+  mode="indeterminate"
+></mat-progress-bar>

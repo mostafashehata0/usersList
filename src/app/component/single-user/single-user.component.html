@@ -1,0 +1,7 @@
+<div *ngIf="user$ | async as user">
+  <app-display-single-user [info]="user"></app-display-single-user>
+</div>
+
+<button routerLink="/allusers" class="btn btn-primary active button">
+  Button
+</button>
